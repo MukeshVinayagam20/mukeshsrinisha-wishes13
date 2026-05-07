@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Bestie!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Login Section -->
+    <section id="login-section" class="active">
+        <div class="floating-bg">
+            <div class="bubble b1"></div>
+            <div class="bubble b2"></div>
+            <div class="bubble b3"></div>
+            <div class="heart h1">💖</div>
+            <div class="heart h2">💖</div>
+            <div class="heart h3">💖</div>
+        </div>
+
+        <div class="login-card glass-panel">
+            <div class="bunny-container">
+                <div class="bunny">🐰</div>
+            </div>
+            <h2>BESTIE'S SECRET PIN?</h2>
+            <p>Enter the magical 6-digit code for your surprise! 💗</p>
+            
+            <div class="pin-container">
+                <input type="password" class="pin-box" maxlength="1">
+                <input type="password" class="pin-box" maxlength="1">
+                <input type="password" class="pin-box" maxlength="1">
+                <input type="password" class="pin-box" maxlength="1">
+                <input type="password" class="pin-box" maxlength="1">
+                <input type="password" class="pin-box" maxlength="1">
+            </div>
+            <p id="error-message" class="error hidden">Oops! Wrong PIN, try again! 🥺</p>
+            <button id="unlock-btn" class="glow-btn">UNLOCK SURPRISE</button>
+        </div>
+    </section>
+
+    <!-- Questionnaire Section -->
+    <section id="questionnaire-section" class="hidden">
+        <!-- Cute Girl Illustration -->
+        <img src="cute_girl.png" class="q-cute-girl" alt="Cute character" onerror="this.style.display='none'">
+
+        <div class="floating-bg">
+            <div class="bubble b1"></div>
+            <div class="bubble b2"></div>
+            <div class="bubble b3"></div>
+            <div class="heart h1">💖</div>
+            <div class="heart h2">💖</div>
+            <div class="heart h3">💖</div>
+        </div>
+        
+        <div class="question-card glass-panel">
+            <div class="progress-indicator" id="progress-indicator">Step 1 of 5</div>
+            
+            <div class="question-container active-step" id="step-1">
+                <h2>Who is Mukesh for you?</h2>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q1" value="Friend"> Friend 🤝</label>
+                    <label class="option"><input type="radio" name="q1" value="Best Friend"> Best Friend 🫂</label>
+                    <label class="option"><input type="radio" name="q1" value="Mine"> Mine ❤️</label>
+                    <label class="option"><input type="radio" name="q1" value="Nothing"> Nothing 🤷‍♀️</label>
+                </div>
+            </div>
+
+            <div class="question-container hidden" id="step-2">
+                <h2>How much do you like him?</h2>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q2" value="Infinity"> Infinity ♾️</label>
+                    <label class="option"><input type="radio" name="q2" value="Normal"> Bestiee🫂</label>
+                </div>
+            </div>
+
+            <div class="question-container hidden" id="step-3">
+                <h2>When Mukesh speaks with you, how do you feel?</h2>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q3" value="Normal"> Normal 😐</label>
+                    <label class="option"><input type="radio" name="q3" value="Better"> Better 😌</label>
+                    <label class="option"><input type="radio" name="q3" value="Feeling Happy"> Feeling Happy 😊</label>
+                    <label class="option"><input type="radio" name="q3" value="Infinity Laugh"> Infinity Laugh 🤣</label>
+                </div>
+            </div>
+
+            <div class="question-container hidden" id="step-4">
+                <h2>When he scolds you, how much are you affected?</h2>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q4" value="Full Upset"> Full Upset 😭</label>
+                    <label class="option"><input type="radio" name="q4" value="Negative Thinking"> Negative Thinking 😔</label>
+                </div>
+            </div>
+
+            <div class="question-container hidden" id="step-5">
+                <h2>You need to tell something about Mukesh</h2>
+                <textarea id="q5-text" placeholder="Type your thoughts here..." class="styled-textarea"></textarea>
+            </div>
+
+            <p id="q-error-message" class="error hidden">Please select an option to continue! 🥺</p>
+            <p id="q-success-message" class="success-msg hidden">Your response has been submitted to your Mine🎉 </p>
+            
+            <div class="button-group">
+                <button id="next-btn" class="glow-btn">Next</button>
+                <button id="submit-btn" class="glow-btn hidden">Submit</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cinematic Experience Section -->
+    <section id="cinematic-section" class="hidden">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="cinematic-step active">
+            <div class="pulsing-gift">🎁</div>
+            <p>Preparing something special for My thangoo💕...</p>
+        </div>
+
+        <!-- Countdown Screen -->
+        <div id="countdown-screen" class="cinematic-step hidden">
+            <h2 class="countdown-title">A Special Surprise is Waiting 💖</h2>
+            <div id="countdown-number" class="countdown-number">5</div>
+        </div>
+
+        <!-- Reveal Screen -->
+        <div id="reveal-screen" class="cinematic-step hidden">
+            <!-- Animated Gradient Background -->
+            <div class="reveal-gradient-bg"></div>
+            
+            <!-- Glowing Blobs -->
+            <div class="glow-blob blob-1"></div>
+            <div class="glow-blob blob-2"></div>
+            <div class="glow-blob blob-3"></div>
+            
+            <!-- Sparkles Container -->
+            <div id="reveal-sparkles"></div>
+
+            <div class="reveal-bg-effects" id="reveal-bg-effects"></div>
+            <div class="reveal-content">
+                <h1 id="reveal-main-text" class="reveal-main-text"></h1>
+                <div id="reveal-sub-content" class="reveal-sub-content hidden">
+                    <p class="reveal-sub-text">Wishing you a beautiful Birthday Dear💕</p>
+                    <p class="reveal-date-age"><span id="dynamic-date"></span> | Age: 19</p>
+                    <button id="open-surprise-btn" class="glow-btn huge-btn">Open Your Surprise 💝</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section id="main-section" class="hidden">
+        <header class="glass-header">
+            <h1>Happy Birthday! 🎉</h1>
+            <div class="countdown">
+                <p>Time until your special day (May 13th):</p>
+                <div id="timer"></div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Virtual Cake -->
+            <section class="cake-section glass-panel">
+                <h2>Make a Wish! 🎂</h2>
+                <div class="cake" id="cake">
+                    <div class="candle" id="candle">
+                        <div class="flame" id="flame"></div>
+                    </div>
+                    <div class="cake-body">
+                        <div class="frosting"></div>
+                    </div>
+                </div>
+                <p>Click the cake to blow out the candle!</p>
+            </section>
+
+            <!-- Memory Gallery -->
+            <section class="gallery-section glass-panel">
+                <h2>Shared Memories 📸</h2>
+                <div class="gallery-grid">
+                    <div class="memory-card" onclick="showMemoryQuote(0)">
+                        <img src="memory1.jpg" alt="Memory 1">
+                        <div class="memory-overlay">Click for a message ❤️</div>
+                    </div>
+                    <div class="memory-card" onclick="showMemoryQuote(1)">
+                        <img src="memory2.jpg" alt="Memory 2">
+                        <div class="memory-overlay">Click for a message ❤️</div>
+                    </div>
+                    <div class="memory-card" onclick="showMemoryQuote(2)">
+                        <img src="memory3.jpg" alt="Memory 3">
+                        <div class="memory-overlay">Click for a message ❤️</div>
+                    </div>
+                    <div class="memory-card" onclick="showMemoryQuote(3)">
+                        <img src="memory4.jpg" alt="Memory 4">
+                        <div class="memory-overlay">Click for a message ❤️</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Open When Letters -->
+            <section class="letters-section glass-panel">
+                <h2>"Open When" Letters 💌</h2>
+                <div class="letters-grid">
+                    <div class="letter" onclick="openLetter('You miss me')">Open when you miss me</div>
+                    <div class="letter" onclick="openLetter('You need a laugh')">Open when you need a laugh</div>
+                    <div class="letter" onclick="openLetter('You feel sad')">Open when you feel sad</div>
+                </div>
+            </section>
+
+            <!-- Friends Wishes -->
+            <section class="wishes-section glass-panel">
+                <h2>Wall of Wishes 💬</h2>
+                <div class="wishes-wall">
+                    <div class="wish">"Happy birthday to the most amazing bestie! Love you tons!" - Srinisha</div>
+                    <div class="wish">"Hope your day is as magical as you are! ✨" - Srinisha</div>
+                </div>
+
+                <div class="special-wish-intro">
+                    <p>One best wishes for my dear 💜</p>
+                    <div class="bounce-arrow">⬇️</div>
+                </div>
+
+                <div class="special-letter-card" id="special-letter-card">
+                    <div class="card-left">
+                        <div class="envelope-icon">💌</div>
+                    </div>
+                    <div class="card-center">
+                        <h3>A Special Letter For You ❤️</h3>
+                        <p>Someone has a special wish for you. Click to open the letter ❤️</p>
+                    </div>
+                    <div class="card-right">
+                        <button class="circle-btn">➔</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Trigger Final Surprise -->
+            <div class="final-action-container" style="text-align: center; margin: 40px 0 20px;">
+                <button id="final-ending-btn" class="glow-btn huge-btn" style="background: linear-gradient(45deg, #ff69b4, #8a2be2);">One Last Surprise ✨</button>
+            </div>
+            
+        </main>
+    </section>
+
+    <!-- Final Ending Section -->
+    <section id="final-ending-section" class="hidden">
+        <div class="final-gradient-bg"></div>
+        <div id="final-confetti-container"></div>
+        <div id="final-hearts-container"></div>
+        
+        <div class="final-content">
+            <h1 class="final-text">I'm lucky to have you 💕
+“Every memory with you is priceless ✨”</h1>
+            <p class="final-footer">Forever grateful for you 💖</p>
+            
+            <div style="margin-top: 40px;">
+                <button id="fireworks-btn" class="glow-btn huge-btn" style="background: linear-gradient(45deg, #ff9a9e, #fecfef); color: #000; box-shadow: 0 0 20px rgba(255,154,158,0.8);">
+                    Click Here For The Firework Show ✨
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fireworks PIN Modal -->
+    <div id="fireworks-pin-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9998; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+        <div class="login-card glass-panel" style="position: relative; text-align: center; max-width: 90%;">
+            <span id="close-fireworks-pin" class="close-btn" style="position: absolute; right: 15px; top: 10px; cursor: pointer;">&times;</span>
+            <h2>FINAL SECURITY CHECK 🔐</h2>
+            <p style="margin-bottom: 20px;">Enter the 6-digit secret PIN to unlock the fireworks show!</p>
+            
+            <div class="pin-container" style="justify-content: center; margin-bottom: 20px;">
+                <input type="password" class="fw-pin-box pin-box" maxlength="1">
+                <input type="password" class="fw-pin-box pin-box" maxlength="1">
+                <input type="password" class="fw-pin-box pin-box" maxlength="1">
+                <input type="password" class="fw-pin-box pin-box" maxlength="1">
+                <input type="password" class="fw-pin-box pin-box" maxlength="1">
+                <input type="password" class="fw-pin-box pin-box" maxlength="1">
+            </div>
+            <p id="fw-error-message" class="error hidden" style="margin-bottom: 15px;">Oops! Wrong PIN, try again! 🥺</p>
+            <button id="fw-unlock-btn" class="glow-btn">UNLOCK FIREWORKS</button>
+        </div>
+    </div>
+
+    <!-- Fireworks Fullscreen Modal -->
+    <div id="fireworks-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; background: #000; overflow: hidden; opacity: 0; transition: opacity 2s ease-in-out;">
+        <!-- Cinematic Video Background -->
+        <video id="fireworks-video" autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; mix-blend-mode: screen;"></video>
+        
+        <!-- Dark Immersive Atmosphere -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent 0%, #000 80%);"></div>
+
+        <!-- Particles / Stars -->
+        <div id="fireworks-particles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+
+        <!-- Memory Photos Container -->
+        <div id="memory-photos-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 100;">
+            <!-- Photos will be injected here dynamically -->
+        </div>
+
+        <!-- Happy Birthday Sky Text -->
+        <div id="fireworks-text" style="position: absolute; top: 15%; width: 100%; text-align: center; opacity: 0; transform: translateY(20px); transition: all 3s ease-out; z-index: 10;">
+            <h1 style="font-family: 'Great Vibes', cursive; color: #ffd700; font-size: 5rem; text-shadow: 0 0 20px #ffd700, 0 0 40px #ff8c00; margin: 0;">Happy Birthday</h1>
+            <p style="color: #fff; font-size: 1.5rem; text-shadow: 0 0 10px #fff; letter-spacing: 5px; margin-top: 10px; font-family: 'Poppins', sans-serif;">MY DEAR</p>
+        </div>
+        
+        <!-- Close Button -->
+        <button id="close-fireworks" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; z-index: 50; backdrop-filter: blur(5px);">×</button>
+    </div>
+
+    <!-- Modal for Letters -->
+    <div id="letter-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <span class="close-btn" onclick="closeLetter()">&times;</span>
+            <h3 id="letter-title"></h3>
+            <p id="letter-body"></p>
+        </div>
+    </div>
+
+    <!-- Envelope Modal -->
+    <div id="envelope-modal" class="modal hidden">
+        <div class="envelope-wrapper" id="envelope-wrapper">
+            <div class="envelope-image">💌</div>
+            <p class="click-to-open">Click to open your surprise!</p>
+        </div>
+    </div>
+
+    <!-- The Special Letter Modal -->
+    <div id="special-letter-modal" class="modal hidden">
+        <div class="paper-letter">
+            <span class="close-btn" id="close-special-letter">&times;</span>
+            <div class="floating-hearts-bg"></div>
+            <div class="letter-content-wrapper">
+                <span id="typewriter-text"></span><span id="cursor" class="typing-cursor">|</span>
+            </div>
+            <p class="letter-footer hidden" id="letter-footer">💗 Words are coming from the heart<span class="blinking-dots">...</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
