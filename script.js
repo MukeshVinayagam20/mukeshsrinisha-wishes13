@@ -807,3 +807,275 @@ function startMemoryPhotosSequence() {
     showNextPhoto(); // first one immediately
     photosInterval = setInterval(showNextPhoto, 4000); // next every 4s
 }
+
+// --- Voices Memories Logic ---
+const voicesData = [
+    { id: 1, title: "Midnight Laughs", sender: "Mukesh", duration: "0:45", date: "May 1, 2026", audioUrl: "voice1.mp3", avatar: "😂" },
+    { id: 2, title: "Birthday Wish", sender: "Bestie", duration: "1:12", date: "May 5, 2026", audioUrl: "voice2.mp3", avatar: "💖" },
+    { id: 3, title: "Secret Message", sender: "Srinisha", duration: "0:30", date: "May 7, 2026", audioUrl: "voice3.mp3", avatar: "🤫" }
+];
+
+let currentAudio = null;
+let playerPhotoInterval = null;
+
+function initVoices() {
+    const openVoicesBtn = document.getElementById('open-voices-btn');
+    if (!openVoicesBtn) return;
+    
+    renderVoiceCards();
+    
+    openVoicesBtn.addEventListener('click', openVoicesGallery);
+    document.getElementById('close-voices-btn').addEventListener('click', closeVoicesGallery);
+    document.getElementById('close-player-btn').addEventListener('click', closeAudioPlayer);
+}
+
+function renderVoiceCards() {
+    const voicesGrid = document.getElementById('voices-grid');
+    voicesGrid.innerHTML = '';
+    voicesData.forEach(voice => {
+        const card = document.createElement('div');
+        card.className = 'voice-card';
+        card.innerHTML = `
+            <div class="voice-card-top">
+                <div class="voice-avatar">${voice.avatar}</div>
+                <div class="voice-info">
+                    <h3>${voice.title}</h3>
+                    <p>From: ${voice.sender}</p>
+                </div>
+            </div>
+            <div class="mini-waveform">
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+            </div>
+            <div class="voice-meta">
+                <span>${voice.date}</span>
+                <span>${voice.duration}</span>
+            </div>
+        `;
+        card.addEventListener('click', () => playVoiceMoment(voice));
+        voicesGrid.appendChild(card);
+    });
+}
+
+async function openVoicesGallery() {
+    const intro = document.getElementById('voices-intro-overlay');
+    intro.classList.remove('hidden');
+    intro.style.opacity = '1';
+    const text = intro.querySelector('.cinematic-text');
+    text.classList.add('cinematic-active');
+
+    setTimeout(() => {
+        intro.style.opacity = '0';
+        document.getElementById('voices-section').classList.remove('hidden');
+        document.getElementById('main-section').classList.add('hidden');
+        
+        setTimeout(() => {
+            intro.classList.add('hidden');
+            text.classList.remove('cinematic-active');
+        }, 1000);
+    }, 3500);
+}
+
+function closeVoicesGallery() {
+    document.getElementById('voices-section').classList.add('hidden');
+    document.getElementById('main-section').classList.remove('hidden');
+    stopAudio();
+}
+
+function playVoiceMoment(voice) {
+    stopAudio();
+    const overlay = document.getElementById('audio-player-overlay');
+    overlay.classList.remove('hidden');
+    overlay.style.opacity = '1';
+    
+    const introText = document.getElementById('player-intro-text');
+    const controlsUI = document.getElementById('player-controls-ui');
+    
+    introText.classList.add('cinematic-active');
+    controlsUI.classList.add('hidden');
+    
+    document.getElementById('player-title').innerText = voice.title;
+    document.getElementById('player-sender').innerText = `From: ${voice.sender}`;
+    document.getElementById('player-avatar').innerText = voice.avatar;
+
+    currentAudio = new Audio(voice.audioUrl);
+    
+    setTimeout(() => {
+        introText.classList.remove('cinematic-active');
+        controlsUI.classList.remove('hidden');
+        
+        currentAudio.play().catch(e => console.log("Audio play failed - likely no file yet"));
+        startPlayerPhotoAnimation();
+        startWaveformAnimation();
+        
+        const playBtn = document.getElementById('player-play-pause-btn');
+        playBtn.innerText = '⏸';
+        playBtn.onclick = () => {
+            if (currentAudio.paused) {
+                currentAudio.play();
+                playBtn.innerText = '⏸';
+            } else {
+                currentAudio.pause();
+                playBtn.innerText = '▶';
+            }
+        };
+        
+        currentAudio.ontimeupdate = () => {
+            const mins = Math.floor(currentAudio.currentTime / 60);
+            const secs = Math.floor(currentAudio.currentTime % 60).toString().padStart(2, '0');
+            document.getElementById('player-time').innerText = `${mins}:${secs}`;
+        };
+
+        currentAudio.onended = closeAudioPlayer;
+    }, 3500);
+}
+
+function startPlayerPhotoAnimation() {
+    const bg = document.getElementById('player-photo-bg');
+    const photos = ["memory1.jpg", "memory2.jpg", "memory3.jpg", "memory4.jpg", "memory5.jpg"];
+    let i = 0;
+    
+    const updateBg = () => {
+        bg.style.backgroundImage = `url('${photos[i]}')`;
+        bg.style.transition = 'none';
+        bg.style.transform = 'scale(1)';
+        bg.offsetHeight;
+        bg.style.transition = 'transform 10s linear, background-image 2s ease-in-out';
+        bg.style.transform = 'scale(1.1)';
+        i = (i + 1) % photos.length;
+    };
+    
+    updateBg();
+    playerPhotoInterval = setInterval(updateBg, 5000);
+}
+
+function startWaveformAnimation() {
+    const bars = document.querySelectorAll('.waveform-container .waveform-bar');
+    bars.forEach((bar, idx) => {
+        bar.classList.add('waveform-anim');
+        bar.style.animationDelay = `${idx * 0.1}s`;
+    });
+}
+
+function stopAudio() {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+    clearInterval(playerPhotoInterval);
+}
+
+function closeAudioPlayer() {
+    const overlay = document.getElementById('audio-player-overlay');
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        stopAudio();
+    }, 1000);
+}
+
+
+// --- Memories Mood Engine Logic ---
+const moodData = {
+    happy: {
+        chats: [
+            "Screenshot_2026-05-01-13-02-34-98_1c337646f29875672b5a61192b9010f9.jpg",
+            "Screenshot_2026-05-07-19-39-17-18_1c337646f29875672b5a61192b9010f9.jpg",
+            "Screenshot_2026-05-07-19-39-43-97_1c337646f29875672b5a61192b9010f9.jpg"
+        ],
+        quote: "Namma sirippu, sandai, memories ellam ennoda life oda best part 🥺💕",
+        theme: "happy-theme"
+    },
+    sad: {
+        chats: [
+            "Screenshot_2026-05-01-13-02-57-08_1c337646f29875672b5a61192b9010f9.jpg",
+            "Screenshot_2026-05-01-13-03-26-75_1c337646f29875672b5a61192b9010f9.jpg",
+            "Screenshot_2026-05-07-19-39-33-01_1c337646f29875672b5a61192b9010f9.jpg"
+        ],
+        quote: "Enaku unna romba pidikkum. Ne engita sanda podra… but always know I am here. ❤️",
+        theme: "sad-theme"
+    }
+};
+
+let currentMood = 'happy';
+
+function initMoodEngine() {
+    const openBtn = document.getElementById('open-mood-engine-btn');
+    if (!openBtn) return;
+
+    openBtn.addEventListener('click', openMoodEngine);
+    document.getElementById('close-mood-btn').addEventListener('click', closeMoodEngine);
+    document.getElementById('happy-mood-btn').addEventListener('click', () => setMood('happy'));
+    document.getElementById('sad-mood-btn').addEventListener('click', () => setMood('sad'));
+}
+
+async function openMoodEngine() {
+    const transition = document.getElementById('mood-transition-overlay');
+    transition.classList.remove('hidden');
+    transition.style.opacity = '1';
+    transition.querySelector('.cinematic-text').classList.add('cinematic-active');
+
+    setTimeout(() => {
+        transition.style.opacity = '0';
+        document.getElementById('mood-engine-section').classList.remove('hidden');
+        document.getElementById('main-section').classList.add('hidden');
+        setMood('happy'); // default
+        
+        setTimeout(() => {
+            transition.classList.add('hidden');
+            transition.querySelector('.cinematic-text').classList.remove('cinematic-active');
+        }, 1000);
+    }, 3500);
+}
+
+function closeMoodEngine() {
+    document.getElementById('mood-engine-section').classList.add('hidden');
+    document.getElementById('main-section').classList.remove('hidden');
+}
+
+function setMood(mode) {
+    currentMood = mode;
+    const data = moodData[mode];
+    
+    // Update Theme
+    const bg = document.getElementById('mood-bg');
+    bg.className = 'mood-bg ' + data.theme;
+    
+    // Update Tabs
+    document.getElementById('happy-mood-btn').classList.toggle('active', mode === 'happy');
+    document.getElementById('sad-mood-btn').classList.toggle('active', mode === 'sad');
+    
+    // Update Content
+    document.getElementById('mood-quote').innerText = data.quote;
+    renderMoodChats(data.chats);
+}
+
+function renderMoodChats(chats) {
+    const slider = document.getElementById('chat-slider');
+    slider.innerHTML = '';
+    slider.style.transform = 'translateX(0)';
+
+    chats.forEach((chat, idx) => {
+        const frame = document.createElement('div');
+        frame.className = `chat-frame ${idx === 0 ? 'active' : ''}`;
+        frame.innerHTML = `<img src="${chat}" alt="Chat Memory">`;
+        
+        frame.addEventListener('click', () => {
+            // Focus on this chat
+            document.querySelectorAll('.chat-frame').forEach(f => f.classList.remove('active'));
+            frame.classList.add('active');
+            
+            // Center the slider
+            const offset = -(idx * 310); // frame width + gap
+            slider.style.transform = `translateX(${offset}px)`;
+        });
+        
+        slider.appendChild(frame);
+    });
+}
+
+// Start everything
+initMoodEngine();

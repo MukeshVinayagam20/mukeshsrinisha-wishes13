@@ -192,8 +192,33 @@
                         <img src="memory4.jpg" alt="Memory 4">
                         <div class="memory-overlay">Click for a message ❤️</div>
                     </div>
+                    <div class="memory-card" onclick="showMemoryQuote(4)">
+                        <img src="memory5.jpg" alt="Memory 5">
+                        <div class="memory-overlay">Click for a message ❤️</div>
+                    </div>
                 </div>
             </section>
+
+            <!-- Feature Cards Container -->
+            <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px; width: 100%;">
+                <!-- Voice Memories Card -->
+                <section class="voices-trigger-section glass-panel" style="text-align: center; margin: 0;">
+                    <h2>Voice Memories 🎙️</h2>
+                    <p>Listen to some of our most laughed moments!</p>
+                    <button id="open-voices-btn" class="glow-btn" style="background: linear-gradient(45deg, #6a11cb, #2575fc); margin-top: 20px; width: 100%;">
+                        Enter Voices Gallery 🎵
+                    </button>
+                </section>
+
+                <!-- Memories Mood Engine Card -->
+                <section class="mood-engine-trigger-section glass-panel" style="text-align: center; margin: 0;">
+                    <h2>Memories Mood Engine ✨</h2>
+                    <p>Relive every happy and emotional moment.</p>
+                    <button id="open-mood-engine-btn" class="glow-btn" style="background: linear-gradient(45deg, #f093fb, #f5576c); margin-top: 20px; width: 100%;">
+                        Open Mood Engine 🚀
+                    </button>
+                </section>
+            </div>
 
             <!-- Open When Letters -->
             <section class="letters-section glass-panel">
@@ -305,34 +330,94 @@
         <button id="close-fireworks" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; z-index: 50; backdrop-filter: blur(5px);">×</button>
     </div>
 
-    <!-- Modal for Letters -->
-    <div id="letter-modal" class="modal hidden">
-        <div class="modal-content glass-panel">
-            <span class="close-btn" onclick="closeLetter()">&times;</span>
-            <h3 id="letter-title"></h3>
-            <p id="letter-body"></p>
+    <!-- Voices Cinematic Section -->
+    <section id="voices-section" class="hidden">
+        <div class="voices-bg">
+            <div id="voices-photo-bg" class="voices-photo-bg"></div>
+            <div class="voices-overlay-dim"></div>
         </div>
-    </div>
 
-    <!-- Envelope Modal -->
-    <div id="envelope-modal" class="modal hidden">
-        <div class="envelope-wrapper" id="envelope-wrapper">
-            <div class="envelope-image">💌</div>
-            <p class="click-to-open">Click to open your surprise!</p>
+        <!-- Cinematic Intro Overlay -->
+        <div id="voices-intro-overlay" class="voices-intro-overlay hidden">
+            <h1 class="cinematic-text">Someone has a message for you...</h1>
         </div>
-    </div>
 
-    <!-- The Special Letter Modal -->
-    <div id="special-letter-modal" class="modal hidden">
-        <div class="paper-letter">
-            <span class="close-btn" id="close-special-letter">&times;</span>
-            <div class="floating-hearts-bg"></div>
-            <div class="letter-content-wrapper">
-                <span id="typewriter-text"></span><span id="cursor" class="typing-cursor">|</span>
+        <div class="voices-content">
+            <header class="voices-header">
+                <button id="close-voices-btn" class="close-voices-btn">← Back to Home</button>
+                <h1>Most Laughed Calls 🎙️</h1>
+                <p>Reliving the moments that made us laugh the hardest</p>
+            </header>
+
+            <div id="voices-grid" class="voices-grid">
+                <!-- Voice cards will be injected here -->
             </div>
-            <p class="letter-footer hidden" id="letter-footer">💗 Words are coming from the heart<span class="blinking-dots">...</span></p>
+        </div>
+    </section>
+
+    <!-- Global Audio Player Overlay (Cinematic Playback) -->
+    <div id="audio-player-overlay" class="audio-player-overlay hidden">
+        <div id="player-photo-bg" class="player-photo-bg"></div>
+        <div class="player-dim"></div>
+        <div class="player-content">
+            <h2 id="player-intro-text" class="cinematic-text">Someone has a message for you...</h2>
+            <div id="player-controls-ui" class="player-controls-ui hidden">
+                <div class="player-card glass-panel">
+                    <div id="player-avatar" class="player-avatar">👤</div>
+                    <h3 id="player-title">Voice Message</h3>
+                    <p id="player-sender">From: Bestie</p>
+                    <div class="waveform-container">
+                        <div class="waveform-bar"></div>
+                        <div class="waveform-bar"></div>
+                        <div class="waveform-bar"></div>
+                        <div class="waveform-bar"></div>
+                        <div class="waveform-bar"></div>
+                    </div>
+                    <button id="player-play-pause-btn" class="player-btn">⏸</button>
+                    <p id="player-time">0:00</p>
+                </div>
+                <button id="close-player-btn" class="close-player-btn">Close Moment</button>
+            </div>
         </div>
     </div>
+
+    <!-- Mood Engine Section -->
+    <section id="mood-engine-section" class="hidden">
+        <div id="mood-transition-overlay" class="voices-intro-overlay hidden" style="background: #000; z-index: 5000;">
+            <h1 class="cinematic-text">Opening Memories...</h1>
+        </div>
+
+        <div class="mood-engine-content">
+            <div id="mood-bg" class="mood-bg"></div>
+            
+            <header class="mood-header">
+                <button id="close-mood-btn" class="close-voices-btn">← Exit Engine</button>
+                <h1 id="mood-title">Memories Mood Engine</h1>
+                <div class="mood-toggle-container">
+                    <button id="happy-mood-btn" class="mood-tab active">Happy Moments 😊</button>
+                    <button id="sad-mood-btn" class="mood-tab">The Fights & Sorrys 🥺</button>
+                </div>
+            </header>
+
+            <div class="mood-display-area">
+                <!-- Cinematic Chat Slider -->
+                <div class="chat-slider-container">
+                    <div id="chat-slider" class="chat-slider">
+                        <!-- Chats will be injected here -->
+                    </div>
+                </div>
+
+                <div class="mood-interactive-elements">
+                    <div id="mood-quote-box" class="glass-panel mood-quote-box">
+                        <p id="mood-quote">"Every smile we shared is a treasure..."</p>
+                    </div>
+                    <div class="mood-voice-controls" style="margin-top: 20px;">
+                        <button id="mood-play-voice-btn" class="glow-btn">Play Mood Voice 🎵</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
