@@ -1077,5 +1077,17 @@ function renderMoodChats(chats) {
     });
 }
 
-// Start everything
-initMoodEngine();
+
+// Consolidated Initialization
+function startSurpriseApp() {
+    console.log("Surprise App Initializing...");
+    initVoices();
+    initMoodEngine();
+}
+
+// Call init on load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startSurpriseApp);
+} else {
+    startSurpriseApp();
+}
