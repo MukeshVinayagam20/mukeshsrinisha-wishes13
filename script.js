@@ -1,5 +1,5 @@
 // --- PIN Authentication Logic ---
-const pinBoxes = document.querySelectorAll('.pin-box');
+const pinBoxes = document.querySelectorAll('#login-section .pin-box');
 const unlockBtn = document.getElementById('unlock-btn');
 const errorMessage = document.getElementById('error-message');
 const loginSection = document.getElementById('login-section');
@@ -601,7 +601,7 @@ let photosInterval;
 let particlesInterval;
 
 const fwPinModal = document.getElementById('fireworks-pin-modal');
-const fwPinBoxes = document.querySelectorAll('.fw-pin-box');
+const fwPinBoxes = document.querySelectorAll('#fireworks-pin-modal .pin-box');
 const fwUnlockBtn = document.getElementById('fw-unlock-btn');
 const fwErrorMessage = document.getElementById('fw-error-message');
 const closeFwPinBtn = document.getElementById('close-fireworks-pin');
@@ -1081,8 +1081,8 @@ function renderMoodChats(chats) {
 // Consolidated Initialization
 function startSurpriseApp() {
     console.log("Surprise App Initializing...");
-    initVoices();
-    initMoodEngine();
+    try { initVoices(); } catch(e) { console.error("Voices init failed:", e); }
+    try { initMoodEngine(); } catch(e) { console.error("Mood Engine init failed:", e); }
 }
 
 // Call init on load

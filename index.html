@@ -58,7 +58,7 @@
             <div class="progress-indicator" id="progress-indicator">Step 1 of 5</div>
             
             <div class="question-container active-step" id="step-1">
-                <h2>Who is Mukesh for you?</h2>
+                <h2>choose Mukesh as?</h2>
                 <div class="options">
                     <label class="option"><input type="radio" name="q1" value="Friend"> Friend 🤝</label>
                     <label class="option"><input type="radio" name="q1" value="Best Friend"> Best Friend 🫂</label>
@@ -89,7 +89,7 @@
                 <h2>When he scolds you, how much are you affected?</h2>
                 <div class="options">
                     <label class="option"><input type="radio" name="q4" value="Full Upset"> Full Upset 😭</label>
-                    <label class="option"><input type="radio" name="q4" value="Negative Thinking"> Negative Thinking 😔</label>
+                    <label class="option"><input type="radio" name="q4" value="Negative Thinking"> cry for him 🥺</label>
                 </div>
             </div>
 
@@ -150,7 +150,7 @@
     <!-- Main Content Section -->
     <section id="main-section" class="hidden">
         <header class="glass-header">
-            <h1>Happy Birthday! 🎉</h1>
+            <h1>Happy Birthday Srinisha Chellow 🎉</h1>
             <div class="countdown">
                 <p>Time until your special day (May 13th):</p>
                 <div id="timer"></div>
@@ -330,16 +330,20 @@
         <button id="close-fireworks" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; z-index: 50; backdrop-filter: blur(5px);">×</button>
     </div>
 
+    <!-- Cinematic Intro Overlays (Moved outside for visibility) -->
+    <div id="voices-intro-overlay" class="voices-intro-overlay hidden">
+        <h1 class="cinematic-text">Someone has a message for you...</h1>
+    </div>
+    
+    <div id="mood-transition-overlay" class="voices-intro-overlay hidden" style="background: #000; z-index: 5000;">
+        <h1 class="cinematic-text">Opening Memories...</h1>
+    </div>
+
     <!-- Voices Cinematic Section -->
     <section id="voices-section" class="hidden">
         <div class="voices-bg">
             <div id="voices-photo-bg" class="voices-photo-bg"></div>
             <div class="voices-overlay-dim"></div>
-        </div>
-
-        <!-- Cinematic Intro Overlay -->
-        <div id="voices-intro-overlay" class="voices-intro-overlay hidden">
-            <h1 class="cinematic-text">Someone has a message for you...</h1>
         </div>
 
         <div class="voices-content">
@@ -383,10 +387,6 @@
 
     <!-- Mood Engine Section -->
     <section id="mood-engine-section" class="hidden">
-        <div id="mood-transition-overlay" class="voices-intro-overlay hidden" style="background: #000; z-index: 5000;">
-            <h1 class="cinematic-text">Opening Memories...</h1>
-        </div>
-
         <div class="mood-engine-content">
             <div id="mood-bg" class="mood-bg"></div>
             
@@ -418,6 +418,37 @@
             </div>
         </div>
     </section>
+
+    <!-- Letter Modals (Restoring Missing Content) -->
+    <div id="letter-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <span class="close-btn" onclick="closeLetter()">&times;</span>
+            <h2 id="letter-title"></h2>
+            <p id="letter-body"></p>
+        </div>
+    </div>
+
+    <div id="envelope-modal" class="modal hidden" style="z-index: 5000;">
+        <div class="envelope-wrapper" id="envelope-wrapper">
+            <div class="envelope">
+                <div class="letter-preview">Click to Open ❤️</div>
+            </div>
+            <div class="heart-seal">❤️</div>
+        </div>
+    </div>
+
+    <div id="special-letter-modal" class="modal hidden" style="z-index: 5001;">
+        <div class="special-letter-container">
+            <div class="paper-letter">
+                <div class="floating-hearts-bg"></div>
+                <div id="typewriter-text" class="typewriter-text"></div>
+                <div id="letter-footer" class="hidden" style="text-align: right; margin-top: 20px;">
+                    <p>Yours Forever ❤️</p>
+                    <button id="close-special-letter" class="glow-btn">Close ❤️</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
